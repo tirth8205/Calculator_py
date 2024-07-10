@@ -45,6 +45,7 @@ if st.session_state.show_welcome:
     render_welcome()
     if st.button("Start"):
         if st.session_state.name and is_valid_email(st.session_state.email):
+            save_user_data()  # Save the user data when the start button is clicked
             st.session_state.show_welcome = False
             st.rerun()
         else:
@@ -55,7 +56,7 @@ elif st.session_state.show_result:
     
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("[Book a Discovery Call](https://tidycal.com/janet/discovery-call)", unsafe_allow_html=True)
+        st.markdown("<a href='https://tidycal.com/janet/discovery-call' class='button-link' target='_blank'>Book a Discovery Call</a>", unsafe_allow_html=True)
     with col2:
         if st.button("Calculate Again"):
             st.session_state.show_popup = True
