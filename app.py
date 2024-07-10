@@ -6,6 +6,11 @@ from utils import save_user_data, is_valid_email, reset_state  # Import the nece
 # Streamlit UI
 st.set_page_config(page_title="Employee Impact Calculator", page_icon=":briefcase:")
 
+# Load custom HTML and CSS
+with open('index.html', 'r') as f:
+    custom_html = f.read()
+st.markdown(custom_html, unsafe_allow_html=True)
+
 # Load custom CSS
 with open('styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)

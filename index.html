@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamlit Theme Switcher</title>
+    <style>
+        :root {
+            --primary-color: #00928f;
+            --secondary-color: #03333a;
+            --background-color: #f0f2f6;
+            --text-color: #03333a;
+            --input-background-color: #ffffff;
+            --input-border-color: #226f6a;
+            --input-text-color: #03333a;
+            --button-background-color: #00928f;
+            --button-hover-background-color: #226f6a;
+            --button-text-color: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --background-color: #121212;
+            --text-color: #ffffff;
+            --input-background-color: #333333;
+            --input-border-color: #00928f;
+            --input-text-color: #ffffff;
+            --button-background-color: #00928f;
+            --button-hover-background-color: #226f6a;
+            --button-text-color: #ffffff;
+        }
+    </style>
+    <script>
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+            document.body.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+        }
+
+        function detectTheme() {
+            const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)');
+            if (darkThemeMq.matches) {
+                applyTheme('dark');
+            } else {
+                applyTheme('light');
+            }
+        }
+
+        window.addEventListener('load', detectTheme);
+        window.matchMedia('(prefers-color-scheme: dark)').addListener(e => e.matches && applyTheme('dark'));
+        window.matchMedia('(prefers-color-scheme: light)').addListener(e => e.matches && applyTheme('light'));
+    </script>
+</head>
+<body>
+</body>
+</html>
