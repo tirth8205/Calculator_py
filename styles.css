@@ -1,0 +1,112 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: url('background.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #03333a; /* Dark blue text color */
+}
+
+.stButton button {
+    background-color: #00928f !important; /* Teal button background */
+    color: #ffffff !important; /* White text */
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease;
+}
+
+.stButton button:hover {
+    background-color: #226f6a !important; /* Dark green hover background */
+}
+
+.stTextInput input, .stSelectbox select {
+    border: 1px solid #226f6a !important; /* Dark green border */
+    border-radius: 8px !important;
+    padding: 10px !important;
+    font-size: 16px !important;
+    color: #03333a !important; /* Dark blue text color */
+    background-color: #ffffff !important; /* White background */
+    transition: border-color 0.3s ease;
+}
+
+.stTextInput input:focus, .stSelectbox select:focus {
+    border-color: #00928f !important; /* Teal border on focus */
+    outline: none !important;
+    box-shadow: 0 0 5px rgba(0, 146, 143, 0.5) !important;
+}
+
+.result-card {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.result-note {
+    background-color: #eef4f5;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #03333a; /* Dark blue text color */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.fullscreen-bg {
+    background: url('background.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.welcome-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.welcome-header {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.welcome-subheader {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
