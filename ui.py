@@ -1,4 +1,5 @@
 import streamlit as st
+from utils import save_user_data, reset_state, is_valid_email  # Import the necessary functions
 
 def render_header():
     st.markdown("<div class='header'>", unsafe_allow_html=True)
@@ -12,10 +13,19 @@ def render_welcome():
     st.markdown("<p>Find it out in just a few clicks!</p>", unsafe_allow_html=True)
     st.text_input("Name", key='name')
     st.text_input("Email", key='email')
+    if st.button("Start"):
+        if st.session_state.name and is_valid_email(st.session_state.email):
+            save_user_data()  # Save the user data when the start button is clicked
+            st.session_state.show_welcome = False
+            st.session_state.show_inputs = True
+            st.experimental_rerun()
+        else:
+            st.warning("Please enter a valid name and email address.")
     st.markdown("</div>", unsafe_allow_html=True)
 
 def render_result(num_employees, industry, employees_considering_leaving, employees_leaving_due_to_work_life_balance, estimated_turnover_cost):
     render_header()
+    st.markdown("<div class='container'>", unsafe_allow_html=True)
     result_sentence = f"""
         <div class='result-card'>
             <h2>Impact Analysis</h2>
@@ -41,6 +51,9 @@ def render_result(num_employees, industry, employees_considering_leaving, employ
 
     st.markdown(result_sentence, unsafe_allow_html=True)
     st.markdown(note, unsafe_allow_html=True)
+    if st.button("Calculate Again"):
+        reset_state()
+    st.markdown("</div>", unsafe_allow_html=True)
 
 def render_inputs():
     render_header()
@@ -48,6 +61,13 @@ def render_inputs():
     st.subheader("Enter the details below to calculate the impact:")
     num_employees = st.number_input("Number of Employees:", min_value=0, step=1, key='input_num_employees')
     industry = st.selectbox("Industry:", options=["Manufacturing", "Social Work/Healthcare", "Luxury Retail", "Hospitality"], key='input_industry')
+    if st.button("Calculate"):
+        st.session_state.num_employees = num_employees
+        st.session_state.industry = industry
+        st.session_state.show_result = True
+        st.session_state.show_inputs = False
+        save_user_data()
+        st.experimental_rerun()
     st.markdown("</div>", unsafe_allow_html=True)
     return num_employees, industry
 
@@ -60,13 +80,3 @@ def show_popup():
     with col2:
         if st.button("Recalculate"):
             reset_state()
-
-# Function to reset session state and clear cache files
-def reset_state():
-    for key in st.session_state.keys():
-        del st.session_state[key]
-    # Clear any cache files if necessary
-    if os.path.exists('__pycache__'):
-        import shutil
-        shutil.rmtree('__pycache__')
-    st.experimental_rerun()

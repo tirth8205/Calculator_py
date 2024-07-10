@@ -29,6 +29,7 @@ h1, h2 {
     transition: background-color 0.3s ease;
     width: 100%; /* Make button full width */
     max-width: 200px; /* Limit max width */
+    margin: 10px auto; /* Center align */
 }
 
 .stButton button:hover {
