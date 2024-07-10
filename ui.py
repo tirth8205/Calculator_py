@@ -52,3 +52,12 @@ def show_popup():
     with col2:
         if st.button("Recalculate"):
             reset_state()
+
+# Function to reset session state
+def reset_state():
+    st.session_state.show_result = False
+    st.session_state.show_popup = False
+    st.session_state.num_employees = 0
+    st.session_state.industry = 'Manufacturing'
+    st.session_state.show_welcome = True
+    st.rerun()

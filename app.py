@@ -1,8 +1,9 @@
 import streamlit as st
 from calculations import calculate_turnover
-from ui import render_result, render_inputs, render_welcome, show_popup
+from ui import render_result, render_inputs, render_welcome, show_popup, reset_state
 import csv
 import os
+import re
 
 # Streamlit UI
 st.set_page_config(page_title="Employee Impact Calculator", page_icon=":briefcase:")
@@ -27,14 +28,9 @@ if 'show_welcome' not in st.session_state:
 if 'show_popup' not in st.session_state:
     st.session_state.show_popup = False
 
-# Function to reset session state
-def reset_state():
-    st.session_state.show_result = False
-    st.session_state.show_popup = False
-    st.session_state.num_employees = 0
-    st.session_state.industry = 'Manufacturing'
-    st.session_state.show_welcome = True
-    st.experimental_rerun()
+# Function to validate email
+def is_valid_email(email):
+    return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
 
 # Function to save user data
 def save_user_data():
@@ -48,11 +44,11 @@ def save_user_data():
 if st.session_state.show_welcome:
     render_welcome()
     if st.button("Start"):
-        if st.session_state.name and st.session_state.email:
+        if st.session_state.name and is_valid_email(st.session_state.email):
             st.session_state.show_welcome = False
-            st.experimental_rerun()
+            st.rerun()
         else:
-            st.warning("Please enter your name and email address.")
+            st.warning("Please enter a valid name and email address.")
 elif st.session_state.show_result:
     employees_considering_leaving, employees_leaving_due_to_work_life_balance, estimated_turnover_cost = calculate_turnover(st.session_state.num_employees, st.session_state.industry)
     render_result(st.session_state.num_employees, st.session_state.industry, employees_considering_leaving, employees_leaving_due_to_work_life_balance, estimated_turnover_cost)
@@ -63,7 +59,7 @@ elif st.session_state.show_result:
     with col2:
         if st.button("Calculate Again"):
             st.session_state.show_popup = True
-            st.experimental_rerun()
+            st.rerun()
 elif st.session_state.show_popup:
     show_popup()
 else:
@@ -73,4 +69,4 @@ else:
         st.session_state.industry = industry
         st.session_state.show_result = True
         save_user_data()
-        st.experimental_rerun()
+        st.rerun()
